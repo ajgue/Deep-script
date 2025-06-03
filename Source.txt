@@ -12,15 +12,15 @@ local redzlib = {
 	Themes = {
 		Darker = {
 			["Color Hub 1"] = ColorSequence.new({
-				ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 255, 0)),  -- Azul marino profundo
-				ColorSequenceKeypoint.new(0.50, Color3.fromRGB(0, 255, 0)),  -- Azul medio vibrante
-				ColorSequenceKeypoint.new(1.00, Color3.fromRGB(0, 255, 0))   -- Azul marino profundo
+				ColorSequenceKeypoint.new(0.00, Color3.fromRGB(0, 0, 0)),  -- Azul marino profundo
+				ColorSequenceKeypoint.new(0.50, Color3.fromRGB(0, 0, 0)),  -- Azul medio vibrante
+				ColorSequenceKeypoint.new(1.00, Color3.fromRGB(0, 0, 0))   -- Azul marino profundo
 			}),
-			["Color Hub 2"] = Color3.fromRGB(0, 255, 0),  -- Azul oscuro suave
-			["Color Stroke"] = Color3.fromRGB(0, 255, 0),  -- Azul con brillo sutil
-			["Color Theme"] = Color3.fromRGB(0, 255, 0),  -- Azul brillante intenso
+			["Color Hub 2"] = Color3.fromRGB(10, 30, 60),  -- Azul oscuro suave
+			["Color Stroke"] = Color3.fromRGB(15, 40, 90),  -- Azul con brillo sutil
+			["Color Theme"] = Color3.fromRGB(0, 135, 255),  -- Azul brillante intenso
 			["Color Text"] = Color3.fromRGB(250, 250, 255),  -- Blanco frío
-			["Color Dark Text"] = Color3.fromRGB(0, 255, 0)  -- Gris azulado claro
+			["Color Dark Text"] = Color3.fromRGB(180, 200, 230)  -- Gris azulado claro
 		},
 		Dark = {
 			["Color Hub 1"] = ColorSequence.new({
