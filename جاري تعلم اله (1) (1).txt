@@ -5,7 +5,7 @@ local Configs_HUB = {
 Cor_Stroke = Color3.fromRGB(0, 0, 0),
   Cor_Text = Color3.fromRGB(240, 240, 240),
   Cor_DarkText = Color3.fromRGB(240, 240, 240),
-  Corner_Radius = UDim.new(0,15),
+  Corner_Radius = UDim.new(0.20),
   Text_Font = Enum.Font.FredokaOne
 }
 
@@ -414,7 +414,7 @@ function MakeWindow(Configs)
     
     local Mensage = Create("TextLabel", CloseMenu, {
       Size = UDim2.new(0.8, 0, 0.25, 0),
-      Text = "are you sure you want to close this script??",
+      Text = "ها تريد تسد سكربت",
       Position = UDim2.new(0.1, 0, 0.2),
       TextColor3 = Configs_HUB.Cor_Text,
       Font = Configs_HUB.Text_Font,
@@ -426,7 +426,7 @@ function MakeWindow(Configs)
       Size = UDim2.new(0.35, 0, 0.3, 0),
       Position = UDim2.new(0.1, 0, 0.5, 0),
       BackgroundColor3 = Configs_HUB.Cor_Hub,
-      Text = "Close Script",
+      Text = "اي اريد اسد سكربت",
       Font = Configs_HUB.Text_Font,
       TextColor3 = Color3.fromRGB(240, 0, 0),
       TextSize = 20
@@ -437,7 +437,7 @@ function MakeWindow(Configs)
       Position = UDim2.new(0.9, 0, 0.5, 0),
       AnchorPoint = Vector2.new(1, 0),
       BackgroundColor3 = Configs_HUB.Cor_Hub,
-      Text = "Cancel",
+      Text = "لا",
       Font = Configs_HUB.Text_Font,
       TextColor3 = Color3.fromRGB(0, 240, 0),
       TextSize = 20
@@ -1607,7 +1607,7 @@ end
       Position = UDim2.new(0.5, 0, 1, -8),
       Text = "Join",
       Font = Enum.Font.GothamBold,
-      TextSize = 15,
+      TextSize = 13,
       TextColor3 = Color3.fromRGB(220, 220, 220),
       BackgroundColor3 = Color3.fromRGB(50, 200, 50)
     })Corner(IconLabel)
