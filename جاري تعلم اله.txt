@@ -4,10 +4,10 @@ local Configs_HUB = {
   Cor_Stroke = Color3.fromRGB(102, 255, 51),
   Cor_Text = Color3.fromRGB(240, 240, 240),
   Cor_DarkText = Color3.fromRGB(240, 240, 240),
-  Corner_Radius = UDim.new(0.20),
-  Text_Font = Enum.Font.FredokaOne
+  Corner_Radius = UDim.new(0, 20), 
+  Text_Font = Enum.Font.FredokaOne,
+  BackgroundTransparency = 0.8
 }
-
 local CoreGui = game:GetService("CoreGui")
 local TweenService = game:GetService("TweenService")
 local UserInputService = game:GetService("UserInputService")
