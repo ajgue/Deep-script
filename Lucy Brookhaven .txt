@@ -1,0 +1,1142 @@
+local Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/VisualRoblox/Roblox/main/UI-Libraries/Visual%20Command%20UI%20Library/Source.lua', true))()
+
+local Window = Library:CreateWindow({
+    Name = '   تم صنع السكربت من قبل لوسي | ',
+    IntroText = 'سكربـت المطوره لوسي   | Lucy  Hub Brookhaven 🏡',
+    IntroIcon = 'rbxassetid://118271497117451',
+    IntroBlur = true,
+    IntroBlurIntensity = 15,
+    Theme = Library.Themes.dark,
+    Position = 'bottom',
+    Draggable = true,
+    Prefix = ';'
+})
+
+
+loadstring(game:HttpGet(("https://raw.githubusercontent.com/speedwave1/speed_wave/refs/heads/main/Aya")))()
+MakeWindow({
+  Hub = {
+    Title = "Lucy  HUB | Brookhaven",
+    Animation = "ولكم🤭"
+  },
+  Key = {
+    KeySystem = false,
+    Title = "Key System",
+    Description = "",
+    KeyLink = "",
+    Keys = {"1234"},
+    Notifi = {
+      Notifications = true,
+      CorrectKey = "Running the Script...",
+      Incorrectkey = "The key is incorrect",
+      CopyKeyLink = "Copied to Clipboard"
+    }
+  }
+})
+
+MinimizeButton({
+  Image = "rbxassetid://115231466474298",
+  Size = {40, 40},
+  Color = Color3.fromRGB(10, 10, 10),
+  Corner = true,
+  Stroke = true,
+  StrokeColor = Color3.fromRGB(10, 10, 10)
+})
+local Main = MakeTab({Name = "سكنات جاهزة"})  
+-- Atualiza a lista de jogadores quando os jogadores entram ou saem do jogo
+  playerService.PlayerAdded:Connect(function()
+  updateDropdown(playerDropdownV13)
+  end)
+  
+  playerService.PlayerRemoving:Connect(function()
+  updateDropdown(playerDropdownV13)
+  end)
+  
+  -- Atualiza a lista de jogadores ao iniciar o script
+  updateDropdown(playerDropdownV13)
+  
+  -- Serviços necessários
+  local playerService = game:GetService('Players')
+  local runService = game:GetService('RunService')
+  local localPlayer = playerService.LocalPlayer
+  
+  -- Variáveis globais
+  local flingV14Toggle = false
+  local currentPlayerIndex = 1
+  local flingV14Connection
+  local players
+  
+  -- Função para teleportar para a coordenada específica
+  local function teleportToCoordinate()
+  local teleportPosition = Vector3.new(-58, 54, -183) -- Coordenada para onde você deseja teleportar
+  if localPlayer.Character and localPlayer.Character:FindFirstChild("HumanoidRootPart") then
+  localPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(teleportPosition)
+  end
+  end
+  
+  -- Função para flingar jogadores em sequência
+  local function flingPlayersInSequence()
+  if flingV14Toggle then
+  -- Obtém a lista de jogadores uma vez
+  players = playerService:GetPlayers()
+  
+  -- Reseta o índice do jogador atual
+  currentPlayerIndex = 1
+  
+  -- Looping de teleportes em cada jogador
+  flingV14Connection = runService.Heartbeat:Connect(function()
+  -- Ignora o jogador local
+  while players[currentPlayerIndex] == localPlayer do
+  currentPlayerIndex = currentPlayerIndex + 1
+  if currentPlayerIndex > #players then
+  currentPlayerIndex = 1
+  end
+  end
+  
+  local targetPlayer = players[currentPlayerIndex]
+  if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+  if localPlayer.Character and localPlayer.Character:FindFirstChild("HumanoidRootPart") then
+  localPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame
+  
+  -- Verifica se o jogador alvo está sentado
+  if targetPlayer.Character:FindFirstChild("Humanoid") and targetPlayer.Character.Humanoid.SeatPart then
+  teleportToCoordinate()
+  
+  -- Espera 3 segundos antes de ir para o próximo jogador
+  wait(5)
+  currentPlayerIndex = currentPlayerIndex + 1
+  
+  if currentPlayerIndex > #players then
+  currentPlayerIndex = 1
+  end
+  end
+  end
+  end
+  end)
+  end
+  end
+  
+  -- Função de callback para o toggle
+  local function onFlingV14Toggle(value)
+  flingV14Toggle = value
+  if flingV14Toggle then
+  flingPlayersInSequence()
+  else
+  -- Desconecta as conexões quando o toggle é desativado
+  if flingV14Connection then
+  flingV14Connection:Disconnect()
+  flingV14Connection = nil
+  end
+  end
+  end
+  
+  local function killAdvancedPlayer()
+  if selectedKillAdvancedPlayer then
+  local player = game.Players:FindFirstChild(selectedKillAdvancedPlayer)
+  if player then
+  -- Equipa o item 'Couch' no inventÃ¡rio se ainda nÃ£o estiver equipado
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack and not couchEquipped then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  game.Players.LocalPlayer.Character.Humanoid:EquipTool(couch)
+  couchEquipped = true
+  else
+  print("O item 'Couch' nÃ£o foi encontrado no seu inventÃ¡rio.")
+  end
+  end
+  
+  -- Looping de teleportes no jogador selecionado da lista
+  while true do
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
+  wait(0.0) -- Intervalo entre cada teleporte, ajuste conforme necessÃ¡rio
+  
+  -- Verifica se o jogador sentou no 'Couch' e realiza o teleporte para o cÃ©u
+  if player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid.SeatPart then
+  player.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima novamente
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(649.78, -439.87, 126.35) -- Teleporta de volta para a posiÃ§Ã£o original
+  break -- Sai do loop apÃ³s teleportar de volta
+  end
+  end
+  
+  -- Remove o item 'Couch' da mÃ£o do jogador apÃ³s o teleporte para o cÃ©u
+  if couchEquipped then
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  couch.Parent = nil -- Remove o 'Couch' do inventÃ¡rio
+  couchEquipped = false
+  end
+  end
+  end
+  else
+  print("Jogador nÃ£o encontrado.")
+  end
+  else
+  print("Nenhum jogador selecionado para o Bring AvanÃ§ado.")
+  end
+  end
+  
+  
+  local function WatherAdvancedPlayer()
+  if selectedKillAdvancedPlayer then
+  local player = game.Players:FindFirstChild(selectedKillAdvancedPlayer)
+  if player then
+  --big
+  local args = {
+  [1] = "CharacterSizeDown",
+  [2] = 5
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
+  -- Equipa o item 'Couch' no inventÃ¡rio se ainda nÃ£o estiver equipado
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack and not couchEquipped then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  game.Players.LocalPlayer.Character.Humanoid:EquipTool(couch)
+  couchEquipped = true
+  else
+  print("O item 'Couch' nÃ£o foi encontrado no seu inventÃ¡rio.")
+  end
+  end
+  
+  -- Looping de teleportes no jogador selecionado da lista
+  while true do
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
+  wait(0.0) -- Intervalo entre cada teleporte, ajuste conforme necessÃ¡rio
+  
+  -- Verifica se o jogador sentou no 'Couch' e realiza o teleporte para o cÃ©u
+  if player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid.SeatPart then
+  player.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima novamente
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-72.37123107910156, -10.816083908081055, 112.93341827392578) -- Teleporta de volta para a posiÃ§Ã£o original
+  break -- Sai do loop apÃ³s teleportar de volta
+  end
+  end
+  
+  --Small
+  local args = {
+  [1] = "CharacterSizeUp",
+  [2] = 1
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
+  
+  -- Remove o item 'Couch' da mÃ£o do jogador apÃ³s o teleporte para o cÃ©u
+  if couchEquipped then
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  couch.Parent = nil -- Remove o 'Couch' do inventÃ¡rio
+  couchEquipped = false
+  end
+  end
+  end
+  else
+  print("Jogador nÃ£o encontrado.")
+  end
+  else
+  print("Nenhum jogador selecionado para o Bring AvanÃ§ado.")
+  end
+  end
+  
+  -- Lista de Players para Bring AvanÃ§ado
+  local killAdvancedPlayerList = {}
+  for _, player in ipairs(game.Players:GetPlayers()) do
+  table.insert(killAdvancedPlayerList, player.Name)
+  end
+  
+  local function updatePlayerList()
+  local players = game.Players:GetPlayers()
+  local playerNames = {}
+  for _, player in ipairs(players) do
+  table.insert(playerNames, player.Name)
+  end
+  return playerNames
+  end
+  
+  
+  local selectedKillAdvancedPlayer = nil
+  local couchEquipped = false
+  
+  local function killAdvancedPlayer()
+  if selectedKillAdvancedPlayer then
+  local player = game.Players:FindFirstChild(selectedKillAdvancedPlayer)
+  if player then
+  --big
+  local args = {
+  [1] = "CharacterSizeDown",
+  [2] = 5
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
+  -- Equipa o item 'Couch' no inventÃ¡rio se ainda nÃ£o estiver equipado
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack and not couchEquipped then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  game.Players.LocalPlayer.Character.Humanoid:EquipTool(couch)
+  couchEquipped = true
+  else
+  print("O item 'Couch' nÃ£o foi encontrado no seu inventÃ¡rio.")
+  end
+  end
+  
+  -- Looping de teleportes no jogador selecionado da lista
+  while true do
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
+  wait(0.0) -- Intervalo entre cada teleporte, ajuste conforme necessÃ¡rio
+  
+  -- Verifica se o jogador sentou no 'Couch' e realiza o teleporte para o cÃ©u
+  if player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid.SeatPart then
+  player.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima novamente
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-8.657157897949219, -222.3133087158203, -23.58349609375) -- Teleporta de volta para a posiÃ§Ã£o original
+  break -- Sai do loop apÃ³s teleportar de volta
+  end
+  end
+  
+  --Small
+  local args = {
+  [1] = "CharacterSizeUp",
+  [2] = 1
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
+  
+  -- Remove o item 'Couch' da mÃ£o do jogador apÃ³s o teleporte para o cÃ©u
+  if couchEquipped then
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  couch.Parent = nil -- Remove o 'Couch' do inventÃ¡rio
+  couchEquipped = false
+  end
+  end
+  end
+  else
+  print("Jogador nÃ£o encontrado.")
+  end
+  else
+  print("Nenhum jogador selecionado para o Bring AvanÃ§ado.")
+  end
+  end
+  
+  local function FlyAdvancedPlayer()
+  if selectedKillAdvancedPlayer then
+  local player = game.Players:FindFirstChild(selectedKillAdvancedPlayer)
+  if player then
+  --big
+  local args = {
+  [1] = "CharacterSizeDown",
+  [2] = 5
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
+  -- Equipa o item 'Couch' no inventÃ¡rio se ainda nÃ£o estiver equipado
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack and not couchEquipped then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  game.Players.LocalPlayer.Character.Humanoid:EquipTool(couch)
+  couchEquipped = true
+  else
+  print("O item 'Couch' nÃ£o foi encontrado no seu inventÃ¡rio.")
+  end
+  end
+  
+  -- Looping de teleportes no jogador selecionado da lista
+  while true do
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
+  wait(0.0) -- Intervalo entre cada teleporte, ajuste conforme necessÃ¡rio
+  
+  -- Verifica se o jogador sentou no 'Couch' e realiza o teleporte para o cÃ©u
+  if player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid.SeatPart then
+  player.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima novamente
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-107.91380310058594, -10.128937721252441, 261.37420654296875) -- Teleporta de volta para a posiÃ§Ã£o original
+  break -- Sai do loop apÃ³s teleportar de volta
+  end
+  end
+  
+  --Small
+  local args = {
+  [1] = "CharacterSizeUp",
+  [2] = 1
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
+  
+  -- Remove o item 'Couch' da mÃ£o do jogador apÃ³s o teleporte para o cÃ©u
+  if couchEquipped then
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  couch.Parent = nil -- Remove o 'Couch' do inventÃ¡rio
+  couchEquipped = false
+  end
+  end
+  end
+  else
+  print("Jogador nÃ£o encontrado.")
+  end
+  else
+  print("Nenhum jogador selecionado para o Bring AvanÃ§ado.")
+  end
+  end
+  
+  local function SafeVoidAdvancedPlayer()
+  if selectedKillAdvancedPlayer then
+  local player = game.Players:FindFirstChild(selectedKillAdvancedPlayer)
+  if player then
+  --big
+  local args = {
+  [1] = "CharacterSizeDown",
+  [2] = 5
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
+  -- Equipa o item 'Couch' no inventÃ¡rio se ainda nÃ£o estiver equipado
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack and not couchEquipped then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  game.Players.LocalPlayer.Character.Humanoid:EquipTool(couch)
+  couchEquipped = true
+  else
+  print("O item 'Couch' nÃ£o foi encontrado no seu inventÃ¡rio.")
+  end
+  end
+  
+  -- Looping de teleportes no jogador selecionado da lista
+  while true do
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
+  wait(0.0) -- Intervalo entre cada teleporte, ajuste conforme necessÃ¡rio
+  
+  -- Verifica se o jogador sentou no 'Couch' e realiza o teleporte para o cÃ©u
+  if player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid.SeatPart then
+  player.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima novamente
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(462.886474609375, -75.30844116210938, 123.47378540039062) -- Teleporta de volta para a posiÃ§Ã£o original
+  break -- Sai do loop apÃ³s teleportar de volta
+  end
+  end
+  
+  --Small
+  local args = {
+  [1] = "CharacterSizeUp",
+  [2] = 1
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
+  
+  -- Remove o item 'Couch' da mÃ£o do jogador apÃ³s o teleporte para o cÃ©u
+  if couchEquipped then
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  couch.Parent = nil -- Remove o 'Couch' do inventÃ¡rio
+  couchEquipped = false
+  end
+  end
+  end
+  else
+  print("Jogador nÃ£o encontrado.")
+  end
+  else
+  print("Nenhum jogador selecionado para o Bring AvanÃ§ado.")
+  end
+  end
+  
+  local function BowAdvancedPlayer()
+  if selectedKillAdvancedPlayer then
+  local player = game.Players:FindFirstChild(selectedKillAdvancedPlayer)
+  if player then
+  --big
+  local args = {
+  [1] = "CharacterSizeDown",
+  [2] = 5
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
+  -- Equipa o item 'Couch' no inventÃ¡rio se ainda nÃ£o estiver equipado
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack and not couchEquipped then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  game.Players.LocalPlayer.Character.Humanoid:EquipTool(couch)
+  couchEquipped = true
+  else
+  print("O item 'Couch' nÃ£o foi encontrado no seu inventÃ¡rio.")
+  end
+  end
+  
+  -- Looping de teleportes no jogador selecionado da lista
+  while true do
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
+  wait(0.0) -- Intervalo entre cada teleporte, ajuste conforme necessÃ¡rio
+  
+  -- Verifica se o jogador sentou no 'Couch' e realiza o teleporte para o cÃ©u
+  if player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid.SeatPart then
+  player.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima novamente
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-588.5294189453125, 8.251455307006836, -182.5675506591797) -- Teleporta de volta para a posiÃ§Ã£o original
+  break -- Sai do loop apÃ³s teleportar de volta
+  end
+  end
+  
+  --Small
+  local args = {
+  [1] = "CharacterSizeUp",
+  [2] = 1
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
+  
+  -- Remove o item 'Couch' da mÃ£o do jogador apÃ³s o teleporte para o cÃ©u
+  if couchEquipped then
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  couch.Parent = nil -- Remove o 'Couch' do inventÃ¡rio
+  couchEquipped = false
+  end
+  end
+  end
+  else
+  print("Jogador nÃ£o encontrado.")
+  end
+  else
+  print("Nenhum jogador selecionado para o Bring AvanÃ§ado.")
+  end
+  end
+  
+  local function PlaneAdvancedPlayer()
+  if selectedKillAdvancedPlayer then
+  local player = game.Players:FindFirstChild(selectedKillAdvancedPlayer)
+  if player then
+  --big
+  local args = {
+  [1] = "CharacterSizeDown",
+  [2] = 5
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
+  -- Equipa o item 'Couch' no inventÃ¡rio se ainda nÃ£o estiver equipado
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack and not couchEquipped then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  game.Players.LocalPlayer.Character.Humanoid:EquipTool(couch)
+  couchEquipped = true
+  else
+  print("O item 'Couch' nÃ£o foi encontrado no seu inventÃ¡rio.")
+  end
+  end
+  
+  -- Looping de teleportes no jogador selecionado da lista
+  while true do
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
+  wait(0.0) -- Intervalo entre cada teleporte, ajuste conforme necessÃ¡rio
+  
+  -- Verifica se o jogador sentou no 'Couch' e realiza o teleporte para o cÃ©u
+  if player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid.SeatPart then
+  player.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima novamente
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(665.856201171875, 3.6353466510772705, 89.86775970458984) -- Teleporta de volta para a posiÃ§Ã£o original
+  break -- Sai do loop apÃ³s teleportar de volta
+  end
+  end
+  
+  --Small
+  local args = {
+  [1] = "CharacterSizeUp",
+  [2] = 1
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
+  
+  -- Remove o item 'Couch' da mÃ£o do jogador apÃ³s o teleporte para o cÃ©u
+  if couchEquipped then
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  couch.Parent = nil -- Remove o 'Couch' do inventÃ¡rio
+  couchEquipped = false
+  end
+  end
+  end
+  else
+  print("Jogador nÃ£o encontrado.")
+  end
+  else
+  print("Nenhum jogador selecionado para o Bring AvanÃ§ado.")
+  end
+  end
+  
+  local function LagAdvancedPlayer()
+  if selectedKillAdvancedPlayer then
+  local player = game.Players:FindFirstChild(selectedKillAdvancedPlayer)
+  if player then
+  -- Equipa o item 'Couch' no inventÃ¡rio se ainda nÃ£o estiver equipado
+  --big
+  local args = {
+  [1] = "CharacterSizeDown",
+  [2] = 5
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack and not couchEquipped then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  game.Players.LocalPlayer.Character.Humanoid:EquipTool(couch)
+  couchEquipped = true
+  else
+  print("O item 'Couch' nÃ£o foi encontrado no seu inventÃ¡rio.")
+  end
+  end
+  
+  -- Looping de teleportes no jogador selecionado da lista
+  while true do
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
+  wait(0.0) -- Intervalo entre cada teleporte, ajuste conforme necessÃ¡rio
+  
+  -- Verifica se o jogador sentou no 'Couch' e realiza o teleporte para o cÃ©u
+  if player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid.SeatPart then
+  player.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima novamente
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(104.80880737304688, 34.60691833496094, 632.2498168945312) -- Teleporta de volta para a posiÃ§Ã£o original
+  break -- Sai do loop apÃ³s teleportar de volta
+  end
+  end
+  
+  --Small
+  local args = {
+  [1] = "CharacterSizeUp",
+  [2] = 1
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
+  
+  -- Remove o item 'Couch' da mÃ£o do jogador apÃ³s o teleporte para o cÃ©u
+  if couchEquipped then
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  couch.Parent = nil -- Remove o 'Couch' do inventÃ¡rio
+  couchEquipped = false
+  end
+  end
+  end
+  else
+  print("Jogador nÃ£o encontrado.")
+  end
+  else
+  print("Nenhum jogador selecionado para o Bring AvanÃ§ado.")
+  end
+  end
+  
+  local function BringAdvancedPlayer()
+  if selectedKillAdvancedPlayer then
+  local player = game.Players:FindFirstChild(selectedKillAdvancedPlayer)
+  if player then
+  -- Equipa o item 'Couch' no inventÃ¡rio se ainda nÃ£o estiver equipado
+  --big
+  local args = {
+  [1] = "CharacterSizeDown",
+  [2] = 5
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack and not couchEquipped then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  game.Players.LocalPlayer.Character.Humanoid:EquipTool(couch)
+  couchEquipped = true
+  else
+  print("O item 'Couch' nÃ£o foi encontrado no seu inventÃ¡rio.")
+  end
+  end
+  
+  -- Looping de teleportes no jogador selecionado da lista
+  while true do
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
+  wait(0.0) -- Intervalo entre cada teleporte, ajuste conforme necessÃ¡rio
+  
+  -- Verifica se o jogador sentou no 'Couch' e realiza o teleporte para o cÃ©u
+  if player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid.SeatPart then
+  player.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima novamente
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-570.4937133789062, 37.714874267578125, 963.8348999023438) -- Teleporta de volta para a posiÃ§Ã£o original
+  break -- Sai do loop apÃ³s teleportar de volta
+  end
+  end
+  
+  --Small
+  local args = {
+  [1] = "CharacterSizeUp",
+  [2] = 1
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
+  
+  -- Remove o item 'Couch' da mÃ£o do jogador apÃ³s o teleporte para o cÃ©u
+  if couchEquipped then
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  couch.Parent = nil -- Remove o 'Couch' do inventÃ¡rio
+  couchEquipped = false
+  end
+  end
+  end
+  else
+  print("Jogador nÃ£o encontrado.")
+  end
+  else
+  print("Nenhum jogador selecionado para o Bring AvanÃ§ado.")
+  end
+  end
+  
+  local function SafeVoifAdvancedPlayer()
+  if selectedKillAdvancedPlayer then
+  local player = game.Players:FindFirstChild(selectedKillAdvancedPlayer)
+  if player then
+  -- Equipa o item 'Couch' no inventÃ¡rio se ainda nÃ£o estiver equipado
+  --big
+  local args = {
+  [1] = "CharacterSizeDown",
+  [2] = 5
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack and not couchEquipped then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  game.Players.LocalPlayer.Character.Humanoid:EquipTool(couch)
+  couchEquipped = true
+  else
+  print("O item 'Couch' nÃ£o foi encontrado no seu inventÃ¡rio.")
+  end
+  end
+  
+  -- Looping de teleportes no jogador selecionado da lista
+  while true do
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
+  wait(0.0) -- Intervalo entre cada teleporte, ajuste conforme necessÃ¡rio
+  
+  -- Verifica se o jogador sentou no 'Couch' e realiza o teleporte para o cÃ©u
+  if player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid.SeatPart then
+  player.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima novamente
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(104.80880737304688, 34.60691833496094, 632.2498168945312) -- Teleporta de volta para a posiÃ§Ã£o original
+  break -- Sai do loop apÃ³s teleportar de volta
+  end
+  end
+  
+  --Small
+  local args = {
+  [1] = "CharacterSizeUp",
+  [2] = 1
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
+  
+  -- Remove o item 'Couch' da mÃ£o do jogador apÃ³s o teleporte para o cÃ©u
+  if couchEquipped then
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  couch.Parent = nil -- Remove o 'Couch' do inventÃ¡rio
+  couchEquipped = false
+  end
+  end
+  end
+  else
+  print("Jogador nÃ£o encontrado.")
+  end
+  else
+  print("Nenhum jogador selecionado para o Bring AvanÃ§ado.")
+  end
+  end
+  
+  local function SkyAdvancedPlayer()
+  if selectedKillAdvancedPlayer then
+  local player = game.Players:FindFirstChild(selectedKillAdvancedPlayer)
+  if player then
+  -- Equipa o item 'Couch' no inventÃ¡rio se ainda nÃ£o estiver equipado
+  --big
+  local args = {
+  [1] = "CharacterSizeDown",
+  [2] = 5
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack and not couchEquipped then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  game.Players.LocalPlayer.Character.Humanoid:EquipTool(couch)
+  couchEquipped = true
+  else
+  print("O item 'Couch' nÃ£o foi encontrado no seu inventÃ¡rio.")
+  end
+  end
+  
+  -- Looping de teleportes no jogador selecionado da lista
+  while true do
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
+  wait(0.0) -- Intervalo entre cada teleporte, ajuste conforme necessÃ¡rio
+  
+  -- Verifica se o jogador sentou no 'Couch' e realiza o teleporte para o cÃ©u
+  if player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid.SeatPart then
+  player.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima novamente
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(104.80880737304688, 34.60691833496094, 632.2498168945312) -- Teleporta de volta para a posiÃ§Ã£o original
+  break -- Sai do loop apÃ³s teleportar de volta
+  end
+  end
+  
+  --Small
+  local args = {
+  [1] = "CharacterSizeUp",
+  [2] = 1
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
+  
+  -- Remove o item 'Couch' da mÃ£o do jogador apÃ³s o teleporte para o cÃ©u
+  if couchEquipped then
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  couch.Parent = nil -- Remove o 'Couch' do inventÃ¡rio
+  couchEquipped = false
+  end
+  end
+  end
+  else
+  print("Jogador nÃ£o encontrado.")
+  end
+  else
+  print("Nenhum jogador selecionado para o Bring AvanÃ§ado.")
+  end
+  end
+  
+  local function PriAdvancedPlayer()
+  if selectedKillAdvancedPlayer then
+  local player = game.Players:FindFirstChild(selectedKillAdvancedPlayer)
+  if player then
+  -- Equipa o item 'Couch' no inventÃ¡rio se ainda nÃ£o estiver equipado
+  --big
+  local args = {
+  [1] = "CharacterSizeDown",
+  [2] = 5
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack and not couchEquipped then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  game.Players.LocalPlayer.Character.Humanoid:EquipTool(couch)
+  couchEquipped = true
+  else
+  print("O item 'Couch' nÃ£o foi encontrado no seu inventÃ¡rio.")
+  end
+  end
+  
+  -- Looping de teleportes no jogador selecionado da lista
+  while true do
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
+  wait(0.0) -- Intervalo entre cada teleporte, ajuste conforme necessÃ¡rio
+  
+  -- Verifica se o jogador sentou no 'Couch' e realiza o teleporte para o cÃ©u
+  if player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid.SeatPart then
+  player.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima novamente
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-783.1765747070312, -517.522216796875, 1115.422119140625) -- Teleporta de volta para a posiÃ§Ã£o original
+  break -- Sai do loop apÃ³s teleportar de volta
+  end
+  end
+  
+  --Small
+  local args = {
+  [1] = "CharacterSizeUp",
+  [2] = 1
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
+  
+  -- Remove o item 'Couch' da mÃ£o do jogador apÃ³s o teleporte para o cÃ©u
+  if couchEquipped then
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  couch.Parent = nil -- Remove o 'Couch' do inventÃ¡rio
+  couchEquipped = false
+  end
+  end
+  end
+  else
+  print("Jogador nÃ£o encontrado.")
+  end
+  else
+  print("Nenhum jogador selecionado para o Bring AvanÃ§ado.")
+  end
+  end
+  
+  local function PrisionAdvancedPlayer()
+  if selectedKillAdvancedPlayer then
+  local player = game.Players:FindFirstChild(selectedKillAdvancedPlayer)
+  if player then
+  -- Equipa o item 'Couch' no inventÃ¡rio se ainda nÃ£o estiver equipado
+  --big
+  local args = {
+  [1] = "CharacterSizeDown",
+  [2] = 5
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack and not couchEquipped then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  game.Players.LocalPlayer.Character.Humanoid:EquipTool(couch)
+  couchEquipped = true
+  else
+  print("O item 'Couch' nÃ£o foi encontrado no seu inventÃ¡rio.")
+  end
+  end
+  
+  -- Looping de teleportes no jogador selecionado da lista
+  while true do
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
+  wait(0.0) -- Intervalo entre cada teleporte, ajuste conforme necessÃ¡rio
+  
+  -- Verifica se o jogador sentou no 'Couch' e realiza o teleporte para o cÃ©u
+  if player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid.SeatPart then
+  player.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima novamente
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-783.1765747070312, -517.522216796875, 1115.422119140625) -- Teleporta de volta para a posiÃ§Ã£o original
+  break -- Sai do loop apÃ³s teleportar de volta
+  end
+  end
+  
+  --Small
+  local args = {
+  [1] = "CharacterSizeUp",
+  [2] = 1
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
+  
+  -- Remove o item 'Couch' da mÃ£o do jogador apÃ³s o teleporte para o cÃ©u
+  if couchEquipped then
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  couch.Parent = nil -- Remove o 'Couch' do inventÃ¡rio
+  couchEquipped = false
+  end
+  end
+  end
+  else
+  print("Jogador nÃ£o encontrado.")
+  end
+  else
+  print("Nenhum jogador selecionado para o Bring AvanÃ§ado.")
+  end
+  end
+  
+  local function BugAdvancedPlayer()
+  if selectedKillAdvancedPlayer then
+  local player = game.Players:FindFirstChild(selectedKillAdvancedPlayer)
+  if player then
+  -- Equipa o item 'Couch' no inventÃ¡rio se ainda nÃ£o estiver equipado
+  --big
+  local args = {
+  [1] = "CharacterSizeDown",
+  [2] = 5
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack and not couchEquipped then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  game.Players.LocalPlayer.Character.Humanoid:EquipTool(couch)
+  couchEquipped = true
+  else
+  print("O item 'Couch' nÃ£o foi encontrado no seu inventÃ¡rio.")
+  end
+  end
+  
+  -- Looping de teleportes no jogador selecionado da lista
+  while true do
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = player.Character.HumanoidRootPart.CFrame
+  wait(0.0) -- Intervalo entre cada teleporte, ajuste conforme necessÃ¡rio
+  
+  -- Verifica se o jogador sentou no 'Couch' e realiza o teleporte para o cÃ©u
+  if player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid.SeatPart then
+  player.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0) -- Teleporta para cima novamente
+  wait(0.0) -- Espera um pouco antes de teleportar de volta para evitar bugs
+  game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(176.63543701171875, 594.9183959960938, 393.3529052734375) -- Teleporta de volta para a posiÃ§Ã£o original
+  break -- Sai do loop apÃ³s teleportar de volta
+  end
+  end
+  
+  --Small
+  local args = {
+  [1] = "CharacterSizeUp",
+  [2] = 1
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Clothe1s"):FireServer(unpack(args))
+  
+  -- Remove o item 'Couch' da mÃ£o do jogador apÃ³s o teleporte para o cÃ©u
+  if couchEquipped then
+  local backpack = game.Players.LocalPlayer.Backpack
+  if backpack then
+  local couch = backpack:FindFirstChild("Couch")
+  if couch then
+  couch.Parent = nil -- Remove o 'Couch' do inventÃ¡rio
+  couchEquipped = false
+  end
+  end
+  end
+  else
+  print("Jogador nÃ£o encontrado.")
+  end
+  else
+  print("Nenhum jogador selecionado para o Bring AvanÃ§ado.")
+  end
+  end
+  
+  
+  -- Lista de Players para Bring AvanÃ§ado
+  local killAdvancedPlayerList = {}
+  for _, player in ipairs(game.Players:GetPlayers()) do
+  table.insert(killAdvancedPlayerList, player.Name)
+  end
+  
+  
+  
+  
+  local function couch()
+  local args = {
+  [1] = "PickingTools",
+  [2] = "Couch"
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l"):InvokeServer(unpack(args))
+  end
+  
+  local function shoppingCart()
+  local args = {
+  [1] = "PickingTools",
+  [2] = "ShoppingCart"
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l"):InvokeServer(unpack(args))
+  end
+  
+  local function stretcher()
+  local args = {
+  [1] = "PickingTools",
+  [2] = "Stretcher"
+  }
+  game:GetService("ReplicatedStorage").RE:FindFirstChild("1Too1l"):InvokeServer(unpack(args))
+  end
+  
+  
+  local Dropdown = AddDropdown(Main, {
+  Name = "اختيار نوع القتل",
+  Default = "",
+  Options = {"كنبه", "سلة المسواك 🛒", "سرير المستشفى 🛌"},
+  Callback = function(value)
+  if value == "كنبه" then
+  couch()
+  elseif value == "سلة المسواك 🛒" then
+  shoppingCart()
+  elseif value == "سرير المستشفى 🛌" then
+  stretcher()
+  end
+  end
+  })
+  
+  local killAdvancedPlayerList = {}
+  for _, player in ipairs(game.Players:GetPlayers()) do
+  table.insert(killAdvancedPlayerList, player.Name)
+  end
+  
+  local function updatePlayerList()
+  local players = game.Players:GetPlayers()
+  local playerNames = {}
+  for _, player in ipairs(players) do
+  table.insert(playerNames, player.Name)
+  end
+  return playerNames
+  end
+  
+  local Dropdown = AddDropdown(Main, {
+      Name = "اختار اللاعب",
+      Options = killAdvancedPlayerList,
+      Callback = function(playerName)
+  selectedKillAdvancedPlayer = playerName
+  end
+  })
+  
+  AddButton(Main, {
+    Name = "اقتل اللاعب / 1",
+    Callback = function()
+    killAdvancedPlayer()
+    end
+   })
+   
+   AddButton(Main, {
+    Name = "طير الاعب الى السماء",
+    Callback = function()
+    BugAdvancedPlayer()
+    end
+   })
+   
+   AddButton(Main, {
+    Name = "اقتل اللاعب / 2",
+    Callback = function()
+    BowAdvancedPlayer()
+    end
+   })
+   
+   
+   AddButton(Main, {
+    Name = "تعليق الاعب🚫",
+    Callback = function()
+    SkyAdvancedPlayer()
+    end
+   })
+   
+   AddButton(Main, {
+    Name = "تجميد اللاعب🚷",
+    Callback = function()
+    LagAdvancedPlayer()
+    end
+   })
